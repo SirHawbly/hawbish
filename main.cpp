@@ -58,7 +58,8 @@ main(int argc, char **argv) {
       return 0;
 
     // call the split expression
-    sExpr.setS("(+ (* (- 6 1) 2) (* 8 7))");
+    sExpr.setS("(+ 611 7 (/ 9 3))");
+    //sExpr.setS("(list a:(* (- 6 1) 2) b:(eq `asdf 7) c:())");
     sExpr.splitExpression();
 
     // I dont care to do a while true yet.

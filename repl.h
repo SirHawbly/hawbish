@@ -11,6 +11,13 @@ using namespace std;
 int splitExpression(string sIn);
 
 
+struct sChar {
+
+  int pos;
+  int type;
+};
+
+
 class sExpression {
 
   private:
@@ -37,7 +44,7 @@ class sExpression {
     list <sExpression*> getQueue();
 
     int splitExpression();
-    int splitExpression(char* sIn, int len, int depth);
+    vector <vector <string>> splitExpression(char* sIn, int len, int start, int end);
     int NewSplitExpression();
 
 };

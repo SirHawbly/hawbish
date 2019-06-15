@@ -1,5 +1,6 @@
 #include <iostream>
-#include <string>
+#include "string.h"
+#include <vector>
 
 #include "repl.h"
 
@@ -84,11 +85,15 @@ sExpression::getQueue() {
 }
 */
 
+
+// helper function for testing chars in strings.
 int
 isIn(char cIn, string dIn) {
 
   bool ret = false;
 
+  // loop through all chars in the string,
+  // return out if you find it or not.
   for (int j = 0; j < dIn.size(); j++) {    
     if (cIn == dIn[j]) {
       ret = true;
@@ -98,86 +103,208 @@ isIn(char cIn, string dIn) {
   return ret;
 }
 
-int 
+// base constructor
+int
 sExpression::splitExpression() {
-  
-  // string parens = "()";
-  // string whites = " ";
   
   int len = this->s.size();
   char *data = this->s.data();
 
-  string st = "(", en = ")";
-  string sp = " ";
+  cout << data << " -- " << len << endl;
 
-  // bool delim;
-  // char cur;
-
-  cout << data << " " << len << endl;
-
-  splitExpression(data, len, 0);
-
-  // for (int i = 0; i < this->s.size(); i++) {
-    
-    // cur = this->s[i];
-
-    // delim = isIn(cur, parens) || isIn(cur, whites);
-
-    // if (!delim) 
-      // cout << this->s[i];
-    // else
-      // cout << ' ';
-
-  // }
+  splitExpression(data, len, 0, len);
 
   return 0;
 }
 
-int 
-sExpression::splitExpression(char* sIn, int len, int depth) {
 
-  string st = "(", en = ")";
-  string sp = " ";
+// unused display function for 2d vectors.
+void display (const vector<vector<string> >& vy)
+{  for (int i = 0; i < vy.size(); i++)       // loops through each row of vy
+   {  for (int j = 0; j < vy[i].size(); j++) // loops through each element of each row 
+          cout << ":" << vy[i][j] << ": ";   // prints the jth element of the ith row
+      cout << endl;
+   }
+} 
 
-  // bool delim;
-  char cur;
 
-  cout << this->s << endl;
+vector <vector <string>> 
+sExpression::splitExpression(char* sIn, int len, int start, int end) {
 
-  for (int i = 0; i < this->s.size(); i++) {
-    
-    cur = this->s[i];
+  char curChar;
+  vector<vector<string>> argsVector;
+  vector<string> args;
+  string curString = "";
+  int unmatched = 0; 
+  int argc = 0;
 
+
+  // if the current string is "()" return nil instead.
+  if ((end - start) == 1) {
+    curString = "nil";
+    args.push_back(curString);
+    argsVector.push_back(args);
+    return argsVector; 
   }
 
-  return 0;
-}
+  // if end is past len, start is greater than end, or they
+  // are equal, return out with a bad bounds message.
+  if (end > len || start > end || start == end) {
+    cout << "bad bounds: " << endl;
+    cout << "```" << start << "->" << end << "```\n";
+    return argsVector;
+  }
 
+  // if the provided string isnt bound by parens 
+  if (! (sIn[start] == '(') && (sIn[end] == ')') ) {
+    cout << endl << "bad format: " << start << "->" << end;
+    cout << "```" << sIn[start] << "->" << sIn[end-1] << "```\n";
+    return argsVector;
+  }
 
-int
-sExpression::NewSplitExpression() {
+  /*
+  for (int i = start; i < end; i++) {
+    if (sIn[i] == '(') unmatched += 1;
+    else if (sIn[i] == ')') unmatched -= 1;
+    cout << unmatched;
+  }
+  */
 
-  list <char *> breaks;
-  char *data = this->s.data();
-  char *c, d;
+  // print starting message
+  cout << endl << "scanning string: ```";
+  for (int i = start; i <= end; i++)
+      cout << sIn[i];
+  cout << "```" << endl;
 
-  cout << this->s << " size " << this->s.size() << endl;
+  // print starting paren.
+  cout << "s(" << endl;
 
-  for (int i = 0; i < this->s.size(); i++) {
-    for (int j = 0; j < this->delims.size(); j++) {
+  cout << endl << "arg" << argc++ << ": ```";
 
-      c = &data[i];
-      d = this->delims[j];
+  // loop through the string, we need to recurse on hitting
+  // a paren, so find the matching pair of parens if that 
+  // happens.
+  for (int i = start+1; i < end; i++) {
+    
+    curChar = sIn[i];
 
-      if (*c == d)
-        breaks.push_back(c);
+    if (curChar == ' ') {
+
+      cout << "```" << endl << "arg" << argc++ << ": ```";
+      //curString += curChar;
+      args.push_back(curString);
+      curString = "";
+      //cout << endl << i << ":" << curChar << endl;
+
+    } else if (curChar == '(') {
+
+      // cout << "UNMATCHED PARENS";
+      // cout << "[," << endl;
+      cout << "--- parens ---";
+
+      // scan into the input string, gotta grab the other
+      // paren that matches not '(()', but '(())'
+      for (int j = i; j < end-1; j++) {
+        
+        // cout the characters and the depth we are looking at
+        cout << endl << "\t" << j << ", depth=" << unmatched 
+              << ", '" << sIn[j] << "' ";
+
+        // if we hit an open paren, we need to go deeper.
+        if (sIn[j] == '(') {
+
+          unmatched += 1;
+          cout << "-> open -> " << unmatched;
+        
+        // if we hit a close paren, we can check to see if
+        // we have found the correct paren, if not we can
+        // keep going.
+        } else if(sIn[j] == ')') {
+
+          // decrement the matched value, and check its val.
+          unmatched -= 1;
+          cout << " -> close -> " << unmatched;
+
+          // if we are at 0, we are done...
+          if (unmatched == 0) {
+            
+            cout << endl << "--- matched parens ---";
+
+            // print out the bounds and the substring.
+            cout << endl << "ending range: "<< i << " to " << j << "," << endl << " -> ";
+            
+            cout << "final substring: " << "```";
+            for (int k = i; k <= j; k++) 
+              cout << sIn[k];
+            cout << "```";
+
+            // recurse deeper with the bounds.
+            vector<vector<string>> temp = splitExpression(sIn, len, i, j);
+            for (auto a : temp)
+              argsVector.push_back(a);
+
+            i = j + 1;
+            // cout << endl << "]" << endl;
+          }
+        }
+      }
+
+      // if we have an uneven paren situation ```( ( )``` 
+      // assert false.
+      if (unmatched != 0) {
+
+        cout << endl << "UNMATCHED PARENS: " << i << endl;
+        assert(false);
+        return argsVector;
+      }
+
+    // if we have hit a close paren, we have something that
+    // is unbalanced ```( ) )``` we skip the first and last.
+    } else if (curChar == ')' && i < len) {
       
+      cout << endl << "UNMATCHED PARENS: " << i << ":" << end << endl;
+      assert(false);
+
+    // else we print out the character.
+    } else {
+
+      if (i != end-1) {
+
+        cout << curChar;
+        curString += curChar;
+      
+      } else {
+
+        cout << curChar << "```" << endl;
+        curString += curChar;
+        args.push_back(curString);
+        //argsVector.push_back(args);
+      }
     }
   }
 
-  cout << breaks.size();
+  // print out the ending paren.  
+  cout << endl << ")e" << endl;
   
-  return 0;
+  // argsVector.insert(argsVector.front(), args);
+  argsVector.push_back(args);
+  cout << argsVector.size() << " lists of args in: " << endl;
+
+  cout << "```";
+  for (int i = 0; i < len; i++)
+    cout << sIn[i];
+
+  cout << "```" << endl;
+
+  for (auto i  : argsVector) {
+
+    for (auto j : i)
+      cout << "[" << j << "]" << ", ";
+    
+    cout << endl;
+  }
+
+  return argsVector;
 }
 
 
