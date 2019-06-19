@@ -95,15 +95,15 @@ sExpression::getQueue() {
 
 // helper function for testing chars in strings.
 int
-isIn(char cIn, string dIn) {
+isIn1(char cIn, string dIn) {
 
-  bool ret = false;
+  int ret = 0;
 
   // loop through all chars in the string,
   // return out if you find it or not.
   for (int j = 0; j < dIn.size(); j++) {    
     if (cIn == dIn[j]) {
-      ret = true;
+      ret += 1;
     }
   }
 
