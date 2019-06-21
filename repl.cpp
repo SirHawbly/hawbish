@@ -11,37 +11,10 @@
 
 #include "repl.h"
 
-int
-sExpression::read() {
-  
-  string sIn;
-  cin >> sIn;
 
-  this->s = sIn;
-
-  return 0;
-}
-
-
-int
-sExpression::eval() {
-
-  return 0;
-}
-
-
-int
-sExpression::print() {
-  
-  return 0;
-}
-
-
-int 
-sExpression::repl() {
-  
-  return 0;
-}
+// ---------------------------------------------------------
+// Constructors
+// ---------------------------------------------------------
 
 
 sExpression::sExpression() {
@@ -50,7 +23,6 @@ sExpression::sExpression() {
 
 }
 
-
 sExpression::sExpression(string sIn) {
   
   this->s = sIn;
@@ -58,9 +30,19 @@ sExpression::sExpression(string sIn) {
 }
 
 
+// ---------------------------------------------------------
+// Destructor
+// ---------------------------------------------------------
+
+
 sExpression::~sExpression() {
 
 }
+
+
+// ---------------------------------------------------------
+// Getter/Setter Functions
+// ---------------------------------------------------------
 
 
 string 
@@ -76,6 +58,10 @@ sExpression::setS(string sIn) {
   this->s = sIn;
 }
 
+
+// ---------------------------------------------------------
+// Other Class Functions
+// ---------------------------------------------------------
 
 void 
 sExpression::printS() {
@@ -144,7 +130,6 @@ sExpression::splitExpression(char* sIn, int len, int start, int end) {
   string curString = "";
   int unmatched = 0; 
   int argc = 0;
-
 
   // if the current string is "()" return nil instead.
   if ((end - start) == 1) {
@@ -323,5 +308,43 @@ splitExpression(string sIn) {
   tree->push_back(sIn);
   cout << sIn.size();
 
+  return 0;
+}
+
+
+// ---------------------------------------------------------
+// Dead Functions
+// ---------------------------------------------------------
+
+
+int
+sExpression::read() {
+  
+  string sIn;
+  cin >> sIn;
+
+  this->s = sIn;
+
+  return 0;
+}
+
+
+int
+sExpression::eval() {
+
+  return 0;
+}
+
+
+int
+sExpression::print() {
+  
+  return 0;
+}
+
+
+int 
+sExpression::repl() {
+  
   return 0;
 }

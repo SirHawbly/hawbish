@@ -5,11 +5,18 @@
  * distribution of this software for license terms.
  */
 
+
 #include <iostream>
 #include "string.h"
 #include <vector>
 
 #include "mal.h"
+
+
+// ---------------------------------------------------------
+// Helper Functions
+// ---------------------------------------------------------
+
 
 // helper function for testing chars in strings.
 int
@@ -28,10 +35,16 @@ isIn(char cIn, string dIn) {
   return ret;
 }
 
-// base constructor
-mal_type::mal_type() {
 
-  this->data = sIn; 
+// ---------------------------------------------------------
+// Mal_Type Class Functions
+// ---------------------------------------------------------
+
+
+// constructor with a string
+mal_type::mal_type(string sIn) {
+
+  this->data.push_back(sIn);
 }
 
 
@@ -40,15 +53,42 @@ mal_type::~mal_type() {
 
 }
 
+// ---------------------------------------------------------
+// Mal_List Class Functions
+// ---------------------------------------------------------
 
+
+// constructor with a string
 mal_list::mal_list(string sIn) {
 
-  this->data.push_back(sIn);
+  this->data = sIn;
+}
+
+// constructor with a string
+mal_list::mal_list(vector<string> vIn) {
+  
+  for (auto sIn : vIn)
+    this->data_list.push_back(sIn);
 }
 
 // get data function
 list<mal_type>
 mal_list::get_data() {
 
-  return data;
+  return data_list;
 }
+
+
+// base constructor
+mal_list::mal_list() {
+
+  this->data_list = sIn; 
+}
+
+
+// base destructor
+mal_list::~mal_list() {
+
+}
+
+
