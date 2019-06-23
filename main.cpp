@@ -166,7 +166,7 @@ main(int argc, char **argv) {
       cout << endl << "ERROR 1:\nENTERED UNEVEN PARENS: "; 
       cout << openc << " open, to " << closec << " closed." << endl;
       cout << endl;
-      
+
       lineIn = "";
       input.clear();
 
@@ -214,6 +214,13 @@ main(int argc, char **argv) {
 
     // throw two end lines
     cout << endl << endl;
+
+    cout << "printing out the inputted list of strings:" << endl;
+    for (int i = 0; i < input.size(); i++) {
+      cout << input[i] << ", ";
+    }
+
+    cout << endl;
 
     // clear the input lines, and clear the current line
     lineIn = "";
