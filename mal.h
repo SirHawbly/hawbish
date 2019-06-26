@@ -18,18 +18,19 @@ class mal_type {
 
     mal_type(string sIn);
     ~mal_type();
-
+  
     string toString() { 
       return data; 
     }
 };
+
 
 class mal_list {
 
   private:
     
     // 
-    vector<mal_type> data_list;
+    vector<mal_type*> data_list;
 
   public:
     
@@ -41,7 +42,7 @@ class mal_list {
     // destructor
     ~mal_list();
 
-    vector<mal_type> get_data();
+    vector<mal_type*> get_data();
 
 };
 

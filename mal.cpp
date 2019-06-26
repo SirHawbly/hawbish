@@ -37,15 +37,20 @@ isIn(char cIn, string dIn) {
 
 
 // ---------------------------------------------------------
-// Mal_Type Class Functions
+// Constructor
 // ---------------------------------------------------------
 
 
 // constructor with a string
 mal_type::mal_type(string sIn) {
 
-  this->data.push_back(sIn);
+  this->data = sIn;
 }
+
+
+// ---------------------------------------------------------
+// Destructor
+// ---------------------------------------------------------
 
 
 // base destructor
@@ -61,18 +66,23 @@ mal_type::~mal_type() {
 // constructor with a string
 mal_list::mal_list(string sIn) {
 
-  this->data = sIn;
+  mal_type* temp = new mal_type(sIn);
+  this->data_list.push_back(temp);
 }
 
 // constructor with a string
 mal_list::mal_list(vector<string> vIn) {
   
-  for (auto sIn : vIn)
-    this->data_list.push_back(sIn);
+  mal_type* temp;
+
+  for (auto sIn : vIn) {
+    temp = new mal_type(sIn);
+    this->data_list.push_back(temp);
+  }
 }
 
 // get data function
-list<mal_type>
+vector<mal_type*>
 mal_list::get_data() {
 
   return data_list;
@@ -82,13 +92,15 @@ mal_list::get_data() {
 // base constructor
 mal_list::mal_list() {
 
-  this->data_list = sIn; 
+  // this->data_list = ""; 
 }
 
 
 // base destructor
 mal_list::~mal_list() {
 
+  for (auto mIn : this->data_list)
+    delete mIn;
 }
 
 

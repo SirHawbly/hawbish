@@ -6,7 +6,7 @@
  */
 
 #include <iostream> // used
-#import <string> // used
+#include <string> // used
 #include <cstdlib> // not used
 #include <array> // not used
 #include <functional> // not used
@@ -67,6 +67,27 @@ print_header(string s) {
 
 
 int 
+smartInsert(vector<string> vIn, string sIn) {
+
+  string temp;
+  string delims = "()`;";
+  string whites = " \t\n";
+
+  for (auto& c : sIn) {
+  
+    if (isIn(c, delims)) {}
+    
+    if (isIn(c, whites)) {}
+
+    vIn.push_back(temp);
+    temp = "";
+  }
+
+  return 0;
+}
+
+
+int 
 main(int argc, char **argv) {
 
   vector<string> input; // vector to store the entire input
@@ -75,9 +96,6 @@ main(int argc, char **argv) {
   int closec = 0; // num of close parens 
   string lineIn = "start value"; // stores current line,
   string check  = lineIn; // string to check if exit needed
-
-  // make an sExpression variable.
-  // sExpression sExpr = sExpression();
 
   // print out we are starting main.
   print_header("STARTING MAIN");
@@ -101,17 +119,14 @@ main(int argc, char **argv) {
     if (check == "quit") 
       return 0;
 
-    // call the split expression
-    // sExpr.setS("(+ 611 7 (/ 9 3))");
-    // sExpr.setS("(list a:(* (- 6 1) 2) b:(eq `asdf 7) c:())");
-    // sExpr.splitExpression();
-
     // print prompt, wait for input, print the input back
     cout << "<lispy> ";
     cin >> lineIn;
 
-    // push the line into the input array.
-    input.push_back(lineIn);
+    // put the line into the input array.
+    // input.push_back(lineIn);
+    // INPUT
+    smartInsert(input, lineIn);
     
     // cout << "```" << lineIn << "``` ";
 
@@ -122,8 +137,8 @@ main(int argc, char **argv) {
 
     // update the parens value.
     parens = openc - closec;
+
     // cout << openc << "->" << closec << endl;
-    
     // cout << parens << " ";
 
     // if we have encountered parens than we need to test 
@@ -136,27 +151,18 @@ main(int argc, char **argv) {
         
         // grab the line and add a space after.
         cin >> lineIn;      
-        lineIn += " ";
-        input.push_back(lineIn);
+        // lineIn += " ";
+
+        // input.push_back(lineIn);
+        // INPUT
+        smartInsert(input, lineIn);
+
 
         // increment the opens and closes.
         openc += isIn('(', lineIn);
         closec +=  isIn(')', lineIn);
         // cout << openc << ":" << closec << ":" << openc-closec << endl;
       }
-
-      // if open and close arent even, we need to clear 
-      // input and current line, and print an error message
-      /*
-      if (openc != closec) {
-       
-        cout << endl << "ERROR 1:\nENTERED UNEVEN PARENS: "; 
-        cout << openc << " open, to " << closec << " closed." << endl;
-
-        lineIn = "";
-        input.clear();
-      }
-      */
 
     // if we have reached the end of the input, and there 
     // are more close parens than open ones, we need to 
@@ -171,7 +177,7 @@ main(int argc, char **argv) {
       input.clear();
 
       continue;
-    }  
+    }
     
     // Print out the entered array of strigs that we got, 
     // they should have matching parens if we have passed 
@@ -217,7 +223,7 @@ main(int argc, char **argv) {
 
     cout << "printing out the inputted list of strings:" << endl;
     for (int i = 0; i < input.size(); i++) {
-      cout << input[i] << ", ";
+      cout << "`" << input[i] << "` ";
     }
 
     cout << endl;
