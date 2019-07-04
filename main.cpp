@@ -153,9 +153,6 @@ main(int argc, char **argv) {
     // print prompt, wait for input, print the input back
     cout << "<lispy> ";
     getline(cin, lineIn);
-
-    // put the line into the input array.
-    smartInsert(&input, lineIn);
     
     // cout << "```" << lineIn << "``` ";
 
@@ -179,16 +176,14 @@ main(int argc, char **argv) {
       while (openc > closec) {
         
         // grab the line and add a space after.
-        cin >> lineIn;      
-        // lineIn += " ";
-
-        // input.push_back(lineIn);
-        smartInsert(&input, lineIn);
-
+        string temp = "";
+        getline(cin, temp);
+        lineIn += " " + temp;
 
         // increment the opens and closes.
-        openc += isIn('(', lineIn);
-        closec +=  isIn(')', lineIn);
+        openc += isIn('(', temp);
+        closec +=  isIn(')', temp);
+
         // cout << openc << ":" << closec << ":" << openc-closec << endl;
       }
 
@@ -207,14 +202,25 @@ main(int argc, char **argv) {
       continue;
     }
     
-    // throw two end lines
+    // throw end lines
     cout << endl;
 
+    // put the line into the input array.
+    smartInsert(&input, lineIn);
+
+    // TODO MAKE ELEMENTS HERE
+
+    
+    // TODO PARSE HERE
+
+
+    // Printout the Inputted List
     cout << "Inputted list of elements:" << endl;
     for (int i = 0; i < input.size(); i++) {
       cout << "" << input[i] << " ";
     }
 
+    // print end lines
     cout << endl << endl;
 
     // clear the input lines, and clear the current line
