@@ -6,9 +6,9 @@
 #
 
 CC = clang++
-CFLAGS = -std=c++17 -Wall -Werror -O3 -ferror-limit=5
+CFLAGS = -std=c++17 -Wall -Werror -O3 -ferror-limit=5 -v
 
-all: repl.o main.o
+all: repl.o mal.o main.o
 	$(CC) $(CFLAGS) -o main *.o 
 
 	@echo "\ncleaning out obj files ..."
@@ -24,6 +24,9 @@ all: repl.o main.o
 
 repl.o: repl.cpp repl.h
 	$(CC) $(CFLAGS) -c repl.cpp -o repl.o
+
+mal.o: mal.cpp mal.h
+	$(CC) $(CFLAGS) -c mal.cpp -o mal.o
 
 main.o: main.cpp repl.o
 	$(CC) $(CFLAGS) -c main.cpp -o main.o

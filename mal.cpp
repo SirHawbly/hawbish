@@ -20,7 +20,7 @@
 
 // helper function for testing chars in strings.
 int
-isIn(char cIn, string dIn) {
+isInMal(char cIn, string dIn) {
 
   bool ret = false;
 

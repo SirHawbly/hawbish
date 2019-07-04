@@ -19,7 +19,6 @@
 
 using namespace std;
 
-
 // function to get the amount of characters in a given string.
 int
 isIn(char cIn, string dIn) {
@@ -122,11 +121,14 @@ int
 main(int argc, char **argv) {
 
   vector<string> input; // vector to store the entire input
+  string lineIn = "start value"; // stores current line,
+  string check  = lineIn; // string to check if exit needed
+
   int parens = 0; // the sum value of the open/close parens
   int openc  = 0; // num of open parens 
   int closec = 0; // num of close parens 
-  string lineIn = "start value"; // stores current line,
-  string check  = lineIn; // string to check if exit needed
+
+  mal_list* elemList;
 
   // print out we are starting main.
   print_header("STARTING MAIN");
@@ -154,8 +156,6 @@ main(int argc, char **argv) {
     cout << "<lispy> ";
     getline(cin, lineIn);
     
-    // cout << "```" << lineIn << "``` ";
-
     // set the opens and closes according to the two paren
     // characters
     openc = isIn('(', lineIn);
@@ -163,9 +163,6 @@ main(int argc, char **argv) {
 
     // update the parens value.
     parens = openc - closec;
-
-    // cout << openc << "->" << closec << endl;
-    // cout << parens << " ";
 
     // if we have encountered parens than we need to test 
     // them.
@@ -184,7 +181,6 @@ main(int argc, char **argv) {
         openc += isIn('(', temp);
         closec +=  isIn(')', temp);
 
-        // cout << openc << ":" << closec << ":" << openc-closec << endl;
       }
 
     // if we have reached the end of the input, and there 
@@ -209,7 +205,7 @@ main(int argc, char **argv) {
     smartInsert(&input, lineIn);
 
     // TODO MAKE ELEMENTS HERE
-
+    elemList = new mal_list(input);
     
     // TODO PARSE HERE
 

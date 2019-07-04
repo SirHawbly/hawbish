@@ -8,6 +8,7 @@
 
 using namespace std;
 
+int isIn(char cIn, string dIn);
 
 class mal_type {
 

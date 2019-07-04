@@ -81,7 +81,7 @@ sExpression::getQueue() {
 
 // helper function for testing chars in strings.
 int
-isIn1(char cIn, string dIn) {
+isIn12(char cIn, string dIn) {
 
   int ret = 0;
 
@@ -112,7 +112,7 @@ sExpression::splitExpression() {
 
 
 // unused display function for 2d vectors.
-void display (const vector<vector<string> >& vy)
+void display1 (const vector<vector<string> >& vy)
 {  for (int i = 0; i < vy.size(); i++)       // loops through each row of vy
    {  for (int j = 0; j < vy[i].size(); j++) // loops through each element of each row 
           cout << ":" << vy[i][j] << ": ";   // prints the jth element of the ith row
@@ -301,7 +301,7 @@ sExpression::splitExpression(char* sIn, int len, int start, int end) {
 
 
 int
-splitExpression(string sIn) {
+splitExpression12(string sIn) {
 
   auto tree = new list <string>;
   cout << sIn << endl;
