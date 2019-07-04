@@ -7,7 +7,7 @@
 
 #include <iostream> // used
 #include <string> // used
-#include <cstdlib> // not used
+// #include <cstdlib> // not used
 #include <array> // not used
 #include <functional> // not used
 #include <vector> // not used
@@ -67,21 +67,60 @@ print_header(string s) {
 
 
 int 
-smartInsert(vector<string> vIn, string sIn) {
+smartInsert(vector<string>* vIn, string sIn) {
 
-  string temp;
+  string temp = "";
   string delims = "()`;";
   string whites = " \t\n";
 
+  int count = 0;
+
+  cout << "STARTING PARSE" << endl;
+
   for (auto& c : sIn) {
   
-    if (isIn(c, delims)) {}
-    
-    if (isIn(c, whites)) {}
+    ++count;
+    cout << endl << count << "." << endl;
+    cout << "current str: `" << temp << "`" << endl;
+    cout << "current chr: `" << c << "`" << endl;
 
-    vIn.push_back(temp);
-    temp = "";
+    // have hit a delimeter
+    if (isIn(c, delims) > 0) {
+    
+      // if the temp string isnt empty, we add it.  
+      if (temp != "") {
+        cout << "adding temp, " << temp << endl;
+        vIn->push_back(temp);
+      }
+
+      // add the delim char
+      cout << "adding delim, " << c << endl;
+      temp = c;
+      vIn->push_back(temp);
+
+      // reset temp string
+      temp = "";
+
+    // have hit whitespace
+    } else if (isIn(c, whites) > 0) {
+
+      // if we have a temp string, add it to vIn  
+      if (temp != "") {
+        vIn->push_back(temp);
+      }
+
+      // clear temp.
+      temp = "";
+
+    } else {
+
+      // have hit more characters
+      temp += c;
+    }
   }
+
+  if (vIn->size() == 0)
+    vIn->push_back(temp);
 
   return 0;
 }
@@ -121,12 +160,13 @@ main(int argc, char **argv) {
 
     // print prompt, wait for input, print the input back
     cout << "<lispy> ";
-    cin >> lineIn;
+    getline(cin, lineIn);
 
     // put the line into the input array.
     // input.push_back(lineIn);
-    // INPUT
-    smartInsert(input, lineIn);
+
+    cout << "Inserting: " << lineIn;
+    smartInsert(&input, lineIn);
     
     // cout << "```" << lineIn << "``` ";
 
@@ -155,7 +195,7 @@ main(int argc, char **argv) {
 
         // input.push_back(lineIn);
         // INPUT
-        smartInsert(input, lineIn);
+        smartInsert(&input, lineIn);
 
 
         // increment the opens and closes.
@@ -182,7 +222,7 @@ main(int argc, char **argv) {
     // Print out the entered array of strigs that we got, 
     // they should have matching parens if we have passed 
     // through the logic above.
-    cout << endl << "Entered:" << endl;
+    cout << endl << "Entered " << input.size() << " items." << endl;
 
     // create an indent value.
     int indent = 0;
@@ -190,7 +230,7 @@ main(int argc, char **argv) {
     // for all strings in the input, print them out with 
     // corresponding tabs based on the level that it 
     // belongs.
-    for (string& s : input) {
+    for (auto s : input) {
 
       /// cout << "```" << (s == input[0]) << "```";
       
@@ -223,7 +263,7 @@ main(int argc, char **argv) {
 
     cout << "printing out the inputted list of strings:" << endl;
     for (int i = 0; i < input.size(); i++) {
-      cout << "`" << input[i] << "` ";
+      cout << "" << input[i] << " ";
     }
 
     cout << endl;
