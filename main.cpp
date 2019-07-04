@@ -73,28 +73,18 @@ smartInsert(vector<string>* vIn, string sIn) {
   string delims = "()`;";
   string whites = " \t\n";
 
-  int count = 0;
-
-  cout << "STARTING PARSE" << endl;
+  // cout << "STARTING PARSE" << endl;
 
   for (auto& c : sIn) {
-  
-    ++count;
-    cout << endl << count << "." << endl;
-    cout << "current str: `" << temp << "`" << endl;
-    cout << "current chr: `" << c << "`" << endl;
 
     // have hit a delimeter
     if (isIn(c, delims) > 0) {
     
       // if the temp string isnt empty, we add it.  
-      if (temp != "") {
-        cout << "adding temp, " << temp << endl;
+      if (temp != "") 
         vIn->push_back(temp);
-      }
 
       // add the delim char
-      cout << "adding delim, " << c << endl;
       temp = c;
       vIn->push_back(temp);
 
@@ -121,6 +111,8 @@ smartInsert(vector<string>* vIn, string sIn) {
 
   if (vIn->size() == 0)
     vIn->push_back(temp);
+
+  // cout << "END OF PARSE" << endl;
 
   return 0;
 }
@@ -163,9 +155,6 @@ main(int argc, char **argv) {
     getline(cin, lineIn);
 
     // put the line into the input array.
-    // input.push_back(lineIn);
-
-    cout << "Inserting: " << lineIn;
     smartInsert(&input, lineIn);
     
     // cout << "```" << lineIn << "``` ";
@@ -194,7 +183,6 @@ main(int argc, char **argv) {
         // lineIn += " ";
 
         // input.push_back(lineIn);
-        // INPUT
         smartInsert(&input, lineIn);
 
 
@@ -219,54 +207,15 @@ main(int argc, char **argv) {
       continue;
     }
     
-    // Print out the entered array of strigs that we got, 
-    // they should have matching parens if we have passed 
-    // through the logic above.
-    cout << endl << "Entered " << input.size() << " items." << endl;
-
-    // create an indent value.
-    int indent = 0;
-
-    // for all strings in the input, print them out with 
-    // corresponding tabs based on the level that it 
-    // belongs.
-    for (auto s : input) {
-
-      /// cout << "```" << (s == input[0]) << "```";
-      
-      // if we are on any other line than the first, we need
-      // to add some tabs to space the output.
-      if (s != input[0]) {
-        
-        cout << endl;
-
-        for (int i = 0; i < indent; i++) 
-          cout << "    ";
-      }
-
-      // increment the indent value.
-      indent += isIn('(', s) - isIn(')', s);
-
-      // print out the string, stopping if the string 
-      // contains a newline.
-      // cout << "`";
-      for (int i = 0; i < s.size(); i++) {
-      
-        cout << s[i];
-      }
-      // cout << "`";
-      // end printout
-    }
-
     // throw two end lines
-    cout << endl << endl;
+    cout << endl;
 
-    cout << "printing out the inputted list of strings:" << endl;
+    cout << "Inputted list of elements:" << endl;
     for (int i = 0; i < input.size(); i++) {
       cout << "" << input[i] << " ";
     }
 
-    cout << endl;
+    cout << endl << endl;
 
     // clear the input lines, and clear the current line
     lineIn = "";
