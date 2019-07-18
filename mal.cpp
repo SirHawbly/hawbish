@@ -36,8 +36,33 @@ isInMal(char cIn, string dIn) {
 }
 
 
+void
+print_header_two(string s) {
+
+  // make a lambda that stores the logic for printing out
+  // hyphens for a given length.
+  auto print_bar = [](int len) {
+  
+    cout << endl;
+
+    for (int i = 0; i < len; i++) 
+      cout << "-";
+  };
+
+  // call the function with size, print the string, then 
+  // print another bar.
+  print_bar(s.size());
+
+  cout << endl << s;
+
+  print_bar(s.size());
+
+  // cout an ending line.
+  cout << endl;
+}
+
 // ---------------------------------------------------------
-// Constructor
+// Mal_Type Class Functions
 // ---------------------------------------------------------
 
 
@@ -48,15 +73,11 @@ mal_type::mal_type(string sIn) {
 }
 
 
-// ---------------------------------------------------------
-// Destructor
-// ---------------------------------------------------------
-
-
 // base destructor
 mal_type::~mal_type() {
 
 }
+
 
 // ---------------------------------------------------------
 // Mal_List Class Functions
@@ -79,6 +100,8 @@ mal_list::mal_list(vector<string> vIn) {
     temp = new mal_type(sIn);
     this->data_list.push_back(temp);
   }
+
+  this->size = this->data_list.size();
 }
 
 // get data function
@@ -92,7 +115,8 @@ mal_list::get_data() {
 // base constructor
 mal_list::mal_list() {
 
-  // this->data_list = ""; 
+  // this->data_list; 
+  this->size = 0;
 }
 
 
@@ -104,3 +128,14 @@ mal_list::~mal_list() {
 }
 
 
+void
+mal_list::output() {
+
+  if (this->data_list.size() == 0)
+    return;
+
+  for (auto& a: this->data_list)
+    cout << "mal - " << a->toString() << endl; 
+
+  return;
+}

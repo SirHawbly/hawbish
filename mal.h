@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int isIn(char cIn, string dIn);
+int isInMal(char cIn, string dIn);
 
 class mal_type {
 
@@ -32,6 +32,7 @@ class mal_list {
     
     // 
     vector<mal_type*> data_list;
+    int size;
 
   public:
     
@@ -44,6 +45,8 @@ class mal_list {
     ~mal_list();
 
     vector<mal_type*> get_data();
+
+    void output();
 
 };
 

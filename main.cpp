@@ -128,7 +128,7 @@ main(int argc, char **argv) {
   int openc  = 0; // num of open parens 
   int closec = 0; // num of close parens 
 
-  mal_list* elemList;
+  mal_list* elem_list = nullptr;
 
   // print out we are starting main.
   print_header("STARTING MAIN");
@@ -204,20 +204,39 @@ main(int argc, char **argv) {
     // put the line into the input array.
     smartInsert(&input, lineIn);
 
-    // TODO MAKE ELEMENTS HERE
-    elemList = new mal_list(input);
-    
-    // TODO PARSE HERE
-
-
+    /* 
     // Printout the Inputted List
-    cout << "Inputted list of elements:" << endl;
+    cout << "Inputted list of elements: " << input.size() << endl;
     for (int i = 0; i < input.size(); i++) {
-      cout << "" << input[i] << " ";
+      cout << "\t" << input[i] << endl;
     }
 
     // print end lines
     cout << endl << endl;
+    */
+     
+    // TODO MAKE ELEMENTS HERE 
+    //CHECK NULL
+    if (elem_list == nullptr) {
+      delete elem_list;
+    }
+     
+    elem_list = new mal_list(input);
+
+    cout << "Made Mals: " << elem_list->get_data().size();
+
+    for (auto *a: elem_list->get_data()) {
+      cout << "\n\t" << a->toString();
+    }
+
+    cout << endl << endl;
+
+    /* 
+    cout << elem_list->get_data().size();
+
+    elem_list->output();
+    cout << endl;
+    */
 
     // clear the input lines, and clear the current line
     lineIn = "";

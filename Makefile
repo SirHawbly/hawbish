@@ -6,7 +6,7 @@
 #
 
 CC = clang++
-CFLAGS = -std=c++17 -Wall -Werror -O3 -ferror-limit=5 -v
+CFLAGS = -std=c++17 -Wall -Werror -O3 -ferror-limit=5 #-v
 
 all: repl.o mal.o main.o
 	$(CC) $(CFLAGS) -o main *.o 
