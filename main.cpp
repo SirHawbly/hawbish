@@ -128,7 +128,10 @@ main(int argc, char **argv) {
   int openc  = 0; // num of open parens 
   int closec = 0; // num of close parens 
 
-  mal_list* elem_list = nullptr;
+  // mal_list* elem_list = nullptr;
+  unique_ptr<mal_list> elem_list;
+
+  unique_ptr<int> a = make_unique<int>(10);
 
   // print out we are starting main.
   print_header("STARTING MAIN");
@@ -180,7 +183,6 @@ main(int argc, char **argv) {
         // increment the opens and closes.
         openc += isIn('(', temp);
         closec +=  isIn(')', temp);
-
       }
 
     // if we have reached the end of the input, and there 
@@ -214,14 +216,9 @@ main(int argc, char **argv) {
     // print end lines
     cout << endl << endl;
     */
-     
-    // TODO MAKE ELEMENTS HERE 
-    //CHECK NULL
-    if (elem_list == nullptr) {
-      delete elem_list;
-    }
-     
-    elem_list = new mal_list(input);
+    
+    // TODO FIX
+    elem_list = make_unique<mal_list>(mal_list(input));
 
     cout << "Made Mals: " << elem_list->get_data().size();
 
